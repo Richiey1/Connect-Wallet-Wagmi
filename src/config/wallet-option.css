@@ -1,0 +1,89 @@
+:root {
+  --primary-color: #0066cc;
+  --secondary-color: #3399ff;
+  --accent-color: #02c076;
+  --dark-bg: #121212;
+  --medium-bg: #1e1e1e;
+  --light-bg: #2a2a2a;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --border-color: #3d3d3d;
+  --modal-bg: rgba(0, 0, 0, 0.8);
+  --hover-bg: rgba(255, 255, 255, 0.05);
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.wallet-container {
+  position: relative;
+  font-family: 'Poppins', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+.connect-btn, .disconnect-btn {
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: var(--text-primary);
+  border: none;
+  border-radius: 10px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.connect-btn:hover, .disconnect-btn:hover {
+  transform: scale(1.05);
+  box-shadow: var(--box-shadow);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--modal-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: var(--box-shadow);
+  width: 400px;
+  max-width: 90%;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.wallet-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 35px;
+  border-radius: 8px;
+  background: var(--medium-bg);
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.wallet-option:hover {
+  background: var(--hover-bg);
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    width: 95%;
+  }
+}
