@@ -4,11 +4,9 @@ import { mainnet, sepolia, base, polygon, polygonMumbai, arbitrum, arbitrumGoerl
   fantom, fantomTestnet, scroll, scrollSepolia } from 'wagmi/chains';
 import { walletConnect } from 'wagmi/connectors';
 
-// Get WalletConnect projectId from environment variables
 const projectId = import.meta.env.VITE_APPKIT_PROJECT_ID;
 console.log("Project ID:", import.meta.env.VITE_APPKIT_PROJECT_ID);
 
-// Create and export the wagmi config
 export const config = createConfig({
   chains: [
     mainnet, sepolia, base, 
@@ -22,9 +20,7 @@ export const config = createConfig({
   ],
   connectors: [
     walletConnect({ projectId }),
-    // You can add more connectors here if needed
-    // For example: injected(), coinbaseWallet({ appName: 'My App' })
-  ],
+    ],
   transports: {
     [mainnet.id]: http(),
     [sepolia.id]: http(),

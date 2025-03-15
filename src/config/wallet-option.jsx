@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useAccount, useConnect, useDisconnect, useEnsName } from "wagmi";
 import { shortenAddress } from "../utils/addressUtils";
 import { motion } from "framer-motion";
-import { FaCopy, FaCheck, FaTimes, FaWallet, FaShieldAlt } from "react-icons/fa";
+import {
+  FaCopy,
+  FaCheck,
+  FaTimes,
+  FaWallet,
+  FaShieldAlt,
+} from "react-icons/fa";
 import "../config/wallet-option.css";
 
 const WalletConnect = () => {
@@ -15,12 +21,10 @@ const WalletConnect = () => {
   const { disconnect } = useDisconnect();
   const { data: ensName } = useEnsName({ address });
 
-  // Find WalletConnect connector specifically for special handling if needed
   const walletConnectConnector = connectors.find(
     (connector) => connector.id === "walletConnect"
   );
-  
-  // Get all other connectors
+
   const otherConnectors = connectors.filter(
     (connector) => connector.id !== "walletConnect"
   );
@@ -42,7 +46,6 @@ const WalletConnect = () => {
     }
   };
 
-  // Close modal when connected
   useEffect(() => {
     if (isConnected && isModalOpen) {
       setIsModalOpen(false);
@@ -53,7 +56,11 @@ const WalletConnect = () => {
   return (
     <div className="wallet-container">
       {isConnected ? (
-        <motion.div className="connected-wallet" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <motion.div
+          className="connected-wallet"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
           <div className="address-display">
             <FaShieldAlt className="shield-icon" />
             <span>{ensName || shortenAddress(address)}</span>
@@ -66,10 +73,10 @@ const WalletConnect = () => {
           </button>
         </motion.div>
       ) : (
-        <motion.button 
-          className="connect-btn" 
-          onClick={toggleModal} 
-          initial={{ scale: 0.9 }} 
+        <motion.button
+          className="connect-btn"
+          onClick={toggleModal}
+          initial={{ scale: 0.9 }}
           animate={{ scale: 1 }}
           disabled={isPending}
         >
@@ -78,8 +85,16 @@ const WalletConnect = () => {
       )}
 
       {isModalOpen && (
-        <motion.div className="modal-overlay" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <motion.div className="modal-content" initial={{ y: 50 }} animate={{ y: 0 }}>
+        <motion.div
+          className="modal-overlay"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <motion.div
+            className="modal-content"
+            initial={{ y: 50 }}
+            animate={{ y: 0 }}
+          >
             <div className="modal-header">
               <h2>Secure Web3 Wallet</h2>
               <button className="modal-close" onClick={toggleModal}>
@@ -88,42 +103,53 @@ const WalletConnect = () => {
             </div>
 
             <div className="wallets-list">
-              {/* Show WalletConnect prominently if available */}
               {walletConnectConnector && (
-                <motion.div 
-                  key={walletConnectConnector.id} 
-                  className={`wallet-option ${pendingConnectorUID === walletConnectConnector.uid ? 'pending' : ''}`}
-                  whileHover={{ scale: 1.05 }} 
+                <motion.div
+                  key={walletConnectConnector.id}
+                  className={`wallet-option ${
+                    pendingConnectorUID === walletConnectConnector.uid
+                      ? "pending"
+                      : ""
+                  }`}
+                  whileHover={{ scale: 1.05 }}
                   onClick={() => handleConnect(walletConnectConnector)}
                 >
-                  <img 
-                    src={walletConnectConnector.icon || "https://logosarchive.com/wp-content/uploads/2022/02/WalletConnect-icon.svg"} 
-                    alt="WalletConnect" 
-                    className="wallet-icon" 
-                    style={{ marginRight: "10px", height: "30px"}} 
+                  <img
+                    src={
+                      walletConnectConnector.icon ||
+                      "https://logosarchive.com/wp-content/uploads/2022/02/WalletConnect-icon.svg"
+                    }
+                    alt="WalletConnect"
+                    className="wallet-icon"
+                    style={{ marginRight: "10px", height: "30px" }}
                   />
                   <span className="wallet-name">
-                    {pendingConnectorUID === walletConnectConnector.uid ? 'Connecting...' : walletConnectConnector.name}
+                    {pendingConnectorUID === walletConnectConnector.uid
+                      ? "Connecting..."
+                      : walletConnectConnector.name}
                   </span>
                 </motion.div>
               )}
-              
-              {/* Show all other connectors */}
+
               {otherConnectors.map((connector) => (
-                <motion.div 
-                  key={connector.id} 
-                  className={`wallet-option ${pendingConnectorUID === connector.uid ? 'pending' : ''}`}
-                  whileHover={{ scale: 1.05 }} 
+                <motion.div
+                  key={connector.id}
+                  className={`wallet-option ${
+                    pendingConnectorUID === connector.uid ? "pending" : ""
+                  }`}
+                  whileHover={{ scale: 1.05 }}
                   onClick={() => handleConnect(connector)}
                 >
-                  <img 
-                    src={connector.icon || "/default-wallet-icon.png"} 
-                    alt={connector.name} 
-                    className="wallet-icon" 
-                    style={{ marginRight: "10px", height: "35px"}} 
+                  <img
+                    src={connector.icon || "/default-wallet-icon.png"}
+                    alt={connector.name}
+                    className="wallet-icon"
+                    style={{ marginRight: "10px", height: "35px" }}
                   />
                   <span className="wallet-name">
-                    {pendingConnectorUID === connector.uid ? 'Connecting...' : connector.name}
+                    {pendingConnectorUID === connector.uid
+                      ? "Connecting..."
+                      : connector.name}
                   </span>
                 </motion.div>
               ))}
@@ -131,7 +157,8 @@ const WalletConnect = () => {
 
             <div className="modal-footer">
               <p>
-                Haven't got a wallet? <a
+                Haven't got a wallet?{" "}
+                <a
                   href="https://ethereum.org/wallets/"
                   target="_blank"
                   rel="noopener noreferrer"
